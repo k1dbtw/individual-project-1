@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+.header {
+}
+
+.header__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f9fa;
+}
+
+.header__top-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.header__top-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
