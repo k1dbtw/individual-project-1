@@ -35,3 +35,29 @@ ul {
   gap: 15px;
 }
 
+.header__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.header__main-div {
+  color: grey;
+}
+
+.header__main-form {
+
+}
+
+.form {
+
+}
+
+.header__main-input {
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  
+}

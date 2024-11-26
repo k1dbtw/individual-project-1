@@ -31,9 +31,13 @@ function Header() {
         <hr />
         <div className="header__main">
           <img src={logo} alt="header__logo" className="header__main-img" />
-          <span className="haeder__main-span">Товары для офиса
-          и детского творчества</span>
-          <input type="text" />
+          <div className="header__main-div">Товары для офиса
+          и детского творчества</div>
+          <div className="header__main-form">
+            <form action="" className="form">
+              <input type="text" name="" id="" className="header__main-input" placeholder="Начните вводить название товара"/>
+            </form>
+          </div>
           <h1 className="header__main-number">+998 (78) 147-01-01</h1>
           <a href="" className="header__main-link">Заказать звонок</a>
         </div>
