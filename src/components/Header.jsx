@@ -1,6 +1,7 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../assets/css/header.css";
 import logo from "../assets/imgs/logo.png";
+import basket from "../assets/imgs/basket.svg"
 import { Routes, Route, Link } from "react-router-dom";
 
 const Main = () => <h1></h1>;
@@ -38,8 +39,13 @@ function Header() {
               <input type="text" name="" id="" className="header__main-input" placeholder="Начните вводить название товара"/>
             </form>
           </div>
+          <div className="header__main-container">
           <h1 className="header__main-number">+998 (78) 147-01-01</h1>
           <a href="" className="header__main-link">Заказать звонок</a>
+          </div>
+        </div>
+        <div className="header__main-basket">
+          <img src={basket} alt="" />
         </div>
         <hr />
         <nav className="header__nav">
