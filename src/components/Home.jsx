@@ -1,27 +1,41 @@
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.css'; // Подключение стилей Swiper
-
-// Опционально подключите модули Swiper
-// import { Navigation, Pagination, Scrollbar } from 'swiper';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/autoplay";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "../assets/css/home.css";
+import banner1 from "../assets/imgs/banner1.jpg";
+import banner2 from "../assets/imgs/banner2.jpg";
+import banner3 from "../assets/imgs/banner3.jpg";
 
 const Home = () => {
-  const slides = ['Слайд 1', 'Слайд 2', 'Слайд 3', 'Слайд 4'];
-
   return (
-    <div>
-      <h1>Домашний Слайдер</h1>
+    <div className="home-banner">
       <Swiper
-        // modules={[Navigation, Pagination, Scrollbar]} // Подключение модулей
-        spaceBetween={50} // Расстояние между слайдами
-        slidesPerView={1} // Количество слайдов на экране
-        navigation // Навигация "вперед-назад"
-        pagination={{ clickable: true }} // Клики на пагинацию
-        scrollbar={{ draggable: true }} // Прокручиваемая полоса
+        modules={[Navigation, Pagination, Autoplay]}
+        navigation
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        loop={true}
+        slidesPerView={1} 
+        className="home-banner-swiper"
       >
-        {slides.map((slide, index) => (
-          <SwiperSlide key={index}>{slide}</SwiperSlide>
-        ))}
+        <SwiperSlide>
+          <div className="banner-slide" style={{ backgroundColor: "#1E2A78" }}>
+            <img src={banner1} alt="Slide 1" className="slide-image" />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="banner-slide" style={{ backgroundColor: "#2A5197" }}>
+            <img src={banner2} alt="Slide 2" className="slide-image" />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="banner-slide" style={{ backgroundColor: "#3C73C0" }}>
+            <img src={banner3} alt="Slide 3" className="slide-image" />
+          </div>
+        </SwiperSlide>
       </Swiper>
     </div>
   );

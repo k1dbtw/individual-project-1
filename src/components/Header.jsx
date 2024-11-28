@@ -1,7 +1,7 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../assets/css/header.css";
 import logo from "../assets/imgs/logo.png";
-import basket from "../assets/imgs/basket.svg"
+import basket from "../assets/imgs/basket.svg";
 import { Routes, Route, Link } from "react-router-dom";
 
 const Main = () => <h1></h1>;
@@ -32,16 +32,30 @@ function Header() {
         <hr />
         <div className="header__main">
           <img src={logo} alt="header__logo" className="header__main-img" />
-          <div className="header__main-div">Товары для офиса
-          и детского творчества</div>
+          <div className="header__main-div">
+            Товары для офиса и детского творчества
+          </div>
           <div className="header__main-form">
             <form action="" className="form">
-              <input type="text" name="" id="" className="header__main-input" placeholder="Начните вводить название товара"/>
+              <div className="form-floating">
+                <input
+                  type="text"
+                  name="search"
+                  id="search"
+                  className="header__main-input"
+                  placeholder=" "
+                />
+                <label htmlFor="search" className="header__main-label">
+                  Начните вводить название товара
+                </label>
+              </div>
             </form>
           </div>
           <div className="header__main-container">
-          <h1 className="header__main-number">+998 (78) 147-01-01</h1>
-          <a href="" className="header__main-link">Заказать звонок</a>
+            <h1 className="header__main-number">+998 (78) 147-01-01</h1>
+            <a href="" className="header__main-link">
+              Заказать звонок
+            </a>
           </div>
         </div>
         <div className="header__main-basket">

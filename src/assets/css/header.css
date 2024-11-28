@@ -48,12 +48,45 @@ ul {
   color: grey;
 }
 
-.header__main-form {
-
+.form-floating {
+  position: relative;
+  width: 100%;
+  max-width: 300px; 
 }
 
-.form {
+.header__main-input {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid rgb(87, 207, 255);
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  background-color: transparent;
+}
 
+.header__main-input:focus {
+  border-color: #007bff;
+}
+
+.header__main-label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: gray;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.header__main-input:focus + .header__main-label,
+.header__main-input:not(:placeholder-shown) + .header__main-label {
+  top: -8px;
+  left: 8px;
+  font-size: 12px;
+  color: #007bff;
+  background-color: white; 
+  padding: 0 4px; 
 }
 
 .header__main-input {
@@ -65,7 +98,6 @@ ul {
 }
 
 .header__main-basket {
-  
 }
 
 .header__nav {
