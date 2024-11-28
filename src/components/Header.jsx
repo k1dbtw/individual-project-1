@@ -71,6 +71,7 @@ function Header() {
           <Link to="/delivery">Оплата и доставка</Link>
         </nav>
       </header>
+      <hr />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/about" element={<About />} />

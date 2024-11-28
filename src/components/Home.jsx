@@ -5,9 +5,10 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "../assets/css/home.css";
-import banner1 from "../assets/imgs/banner1.jpg";
-import banner2 from "../assets/imgs/banner2.jpg";
-import banner3 from "../assets/imgs/banner3.jpg";
+import banner1 from "../assets/imgs/banner11.jpg";
+import banner2 from "../assets/imgs/banner22.jpg";
+import banner3 from "../assets/imgs/banner33.jpg";
+import HomeMain from "../components/HomeMain"
 
 const Home = () => {
   return (
