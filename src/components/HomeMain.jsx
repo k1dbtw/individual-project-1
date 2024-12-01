@@ -11,9 +11,10 @@ import card5 from "../assets/imgs/card5.jpg";
 import card6 from "../assets/imgs/card6.jpg";
 import card7 from "../assets/imgs/card7.png";
 import logo from "../assets/imgs/hey.jpg";
-import img1 from "../assets/imgs/1.jpg"
-import img2 from "../assets/imgs/2.jpg"
-
+import img1 from "../assets/imgs/1.jpg";
+import img2 from "../assets/imgs/2.jpg";
+import fb from "../assets/imgs/facebook.svg";
+import ig from "../assets/imgs/instagram.svg";
 
 function HomeMain() {
   return (
@@ -197,9 +198,84 @@ function HomeMain() {
               Ручки: современные инструменты для письма, рисования и черчения
             </p>
           </div>
-          <button className="container-right-btn">Все статьи</button>
         </div>
       </div>
+      <h1 className="home__main-loc">Наши филиалы</h1>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3069717.665878618!2d64.79163652500002!3d41.29208470000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8ac5c307af75%3A0x4331c56738828d38!2zS2Fuc3RpayBNaXJhYmFkINCa0LDQvdGG0YLQvtCy0LDRgNGL!5e0!3m2!1sru!2s!4v1732859931320!5m2!1sru!2s"
+        style={{ border: 0 }}
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+      />
+      <hr />
+      <footer className="footer">
+        <div className="footer-container">
+          <div className="footer-column">
+            <h4>Компания</h4>
+            <ul>
+              <li>
+                <a href="#">О компании</a>
+              </li>
+              <li>
+                <a href="#">Контакты</a>
+              </li>
+            </ul>
+          </div>
+          <div className="footer-column">
+            <h4>Информация</h4>
+            <ul>
+              <li>
+                <a href="#">Акции и спецпредложения</a>
+              </li>
+            </ul>
+          </div>
+          <div className="footer-column">
+            <h4>Помощь</h4>
+            <ul>
+              <li>
+                <a href="#">Доставка и оплата</a>
+              </li>
+            </ul>
+          </div>
+          <div className="footer-column">
+            <h4>Контакты</h4>
+            <p>📍 Ташкент, Мирабадский р-н, ул. Авлиё Ота, 7</p>
+            <p>
+              📞 <a href="tel:+998781470101">+998 (78) 147-01-01</a>
+            </p>
+            <p>
+              <a href="#">Заказать звонок</a>
+            </p>
+          </div>
+          <div className="footer-column footer-subscribe">
+            <h4>Мы в социальных сетях</h4>
+            <div className="social-icons">
+              <a href="#">
+                <img src={fb} alt="" />
+              </a>
+              <a href="#">
+                <img src={ig} alt="" />
+              </a>
+            </div>
+            <form className="subscribe-form">
+              <label htmlFor="subscribe">Подписывайтесь на рассылку</label>
+              <div className="subscribe-input">
+                <input
+                  id="subscribe"
+                  type="email"
+                  placeholder="Введите ваш e-mail"
+                />
+                <button type="submit">➤</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          2007 - 2024 © Интернет-магазин "Kanstik" |{" "}
+          <a href="#">Политика конфиденциальности</a>
+        </div>
+      </footer>
     </>
   );
 }
