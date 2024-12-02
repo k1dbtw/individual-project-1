@@ -27,18 +27,13 @@ function HomeMain() {
       </div>
       <div className="home__main-container">
         <div className="home__main-item">
-          <button className="home__main-btn">Папки портфели</button>
-          <h2 className="home__main-desc">
-            Удобные портфели для хранение документов
-          </h2>
+          <button className="home__main-btn bag">Папки портфели</button>
         </div>
         <div className="home__main-item">
-          <button className="home__main-btn">Маркеры</button>
-          <h2 className="home__main-desc">Письменные принадлежности</h2>
+          <button className="home__main-btn markers">Маркеры</button>
         </div>
         <div className="home__main-item">
-          <button className="home__main-btn">Пеналы для школьников</button>
-          <h2 className="home__main-desc">Пеналы для школьников и наборы</h2>
+          <button className="home__main-btn penal">Пеналы для школьников</button>
         </div>
       </div>
       <div className="home__main-cards">

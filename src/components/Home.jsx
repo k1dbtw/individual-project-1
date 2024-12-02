@@ -8,7 +8,6 @@ import "../assets/css/home.css";
 import banner1 from "../assets/imgs/banner11.jpg";
 import banner2 from "../assets/imgs/banner22.jpg";
 import banner3 from "../assets/imgs/banner33.jpg";
-import HomeMain from "../components/HomeMain"
 
 const Home = () => {
   return (

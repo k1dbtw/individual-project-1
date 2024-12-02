@@ -2,14 +2,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "../assets/css/header.css";
 import logo from "../assets/imgs/logo.png";
 import basket from "../assets/imgs/basket.svg";
-import { Routes, Route, Link } from "react-router-dom";
-
-const Main = () => <h1></h1>;
-const About = () => <h1></h1>;
-const Delivery = () => <h1></h1>;
-const Payment = () => <h1></h1>;
-const Reg = () => <h1></h1>;
-const Map = () => <h1></h1>;
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -67,19 +60,11 @@ function Header() {
           <Link to="https://franshiza.kanstik.uz/">Франшиза</Link>
           <Link to="/сontacts">Контакты</Link>
           <Link to="/сompany">Компания</Link>
-          <Link to="/stocks">Акции</Link>
+          <Link to="/stocks">Товары</Link>
           <Link to="/delivery">Оплата и доставка</Link>
         </nav>
       </header>
       <hr />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/delivery" element={<Delivery />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/reg" element={<Reg />} />
-        <Route path="/map" element={<Map />} />
-      </Routes>
     </>
   );
 }
