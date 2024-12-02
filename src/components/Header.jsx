@@ -1,3 +1,5 @@
+import { useState } from "react";
+import Modal from "./Modal"; // Импортируем модальное окно
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../assets/css/header.css";
 import logo from "../assets/imgs/logo.png";
@@ -5,6 +7,11 @@ import basket from "../assets/imgs/basket.svg";
 import { Link } from "react-router-dom";
 
 function Header() {
+  const [isModalOpen, setIsModalOpen] = useState(false); // Состояние для модального окна
+
+  const openModal = () => setIsModalOpen(true);  // Открытие модального окна
+  const closeModal = () => setIsModalOpen(false);  // Закрытие модального окна
+
   return (
     <>
       <header className="header">
@@ -18,8 +25,8 @@ function Header() {
             <span>Избранное</span>
             <i className="bi bi-card-list"></i>
             <span>Сравнение (0)</span>
-            <i className="bi bi-person-lock"></i>
-            <span>Войти</span>
+            <i className="bi bi-person-lock" onClick={openModal}></i> {/* Открытие модального окна при клике */}
+            <span onClick={openModal}>Войти</span> {/* Открытие модального окна при клике */}
           </div>
         </div>
         <hr />
@@ -65,6 +72,9 @@ function Header() {
         </nav>
       </header>
       <hr />
+
+      {/* Подключаем и отображаем модальное окно */}
+      <Modal isOpen={isModalOpen} onClose={closeModal} />
     </>
   );
 }
