@@ -17,21 +17,68 @@ const Modal = ({ isOpen, onClose }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  // Обработчик отправки формы для входа
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (isLogin) {
-      // Логика входа
-      console.log("Login with", formData);
+
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+      }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      localStorage.setItem("token", data.token); // Сохраняем токен в localStorage
+      alert("Вы вошли");
+      onClose(); // Закрытие модального окна после успешного входа
     } else {
-      // Логика регистрации
-      console.log("Register with", formData);
+      alert(data.message);
+    }
+  };
+
+  // Обработчик отправки формы для регистрации
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      }),
+    });
+
+    // Проверяем, что сервер возвращает успешный ответ
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data); // Логируем полученные данные
+      alert("Регистрация прошла успешно");
+      setIsLogin(true); // Переключаемся на форму входа после регистрации
+      setFormData({
+        email: "",
+        password: "",
+        name: "",
+      }); // Очищаем поля формы
+    } else {
+      const data = await response.json();
+      alert(data.message || "Произошла ошибка");
     }
   };
 
   if (!isOpen) return null; // Если окно закрыто, не рендерим его
 
   return (
-    <div className={`modal ${isOpen ? "open" : ""}`} onClick={onClose}>
+    <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>{isLogin ? "Вход" : "Регистрация"}</h2>
@@ -39,7 +86,7 @@ const Modal = ({ isOpen, onClose }) => {
             ×
           </button>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={isLogin ? handleLogin : handleRegister}>
           <div className="modal-body">
             {!isLogin && (
               <div className="form-group">

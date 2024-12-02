@@ -136,7 +136,7 @@ button[type="submit"]:disabled {
 
 /* Для кнопок "Зарегистрироваться" / "Войти" */
 .switch button {
-    margin-left: 10px;
+  margin-left: 10px;
   cursor: pointer;
   background: none;
   border: none;
@@ -147,4 +147,52 @@ button[type="submit"]:disabled {
 
 .switch button:hover {
   color: #388e3c;
+}
+
+/* Стили для overlay (затененный фон) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Прозрачный фон */
+  z-index: 1000; /* Убедитесь, что окно будет на переднем плане */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Когда окно закрыто, оно не будет отображаться */
+.modal-overlay.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Контейнер для самого модального окна */
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  transition: transform 0.3s ease;
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Анимация для появления модального окна */
+@keyframes slideIn {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
