@@ -22,7 +22,8 @@ const Modal = ({ isOpen, onClose }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/login", { // Убедитесь, что путь правильный
+      const response = await fetch("http://localhost:5000/api/login", {
+        // Убедитесь, что путь правильный
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,7 +38,6 @@ const Modal = ({ isOpen, onClose }) => {
 
       if (response.ok) {
         localStorage.setItem("token", data.token); // Сохраняем токен в localStorage
-        alert("Вы вошли!");
         onClose(); // Закрытие модального окна после успешного входа
       } else {
         alert(data.message || "Произошла ошибка");
@@ -52,35 +52,25 @@ const Modal = ({ isOpen, onClose }) => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("http://localhost:5000/api/register", { // Используем полный путь
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
+    const response = await fetch("http://localhost:5000/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      }),
+    });
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (response.ok) {
-        alert("Регистрация прошла успешно");
-        setIsLogin(true); // После регистрации переключаем на форму входа
-        setFormData({
-          email: "",
-          password: "",
-          name: "",
-        });
-      } else {
-        alert(data.message || "Произошла ошибка");
-      }
-    } catch (error) {
-      console.error("Ошибка:", error);
-      alert("Не удалось выполнить запрос. Проверьте соединение.");
+    if (response.ok) {
+      alert("Регистрация прошла успешно");
+      setIsLogin(true); // Переключаемся на форму входа
+    } else {
+      alert(data.message); // Если ошибка, выводим сообщение
     }
   };
 
@@ -91,7 +81,9 @@ const Modal = ({ isOpen, onClose }) => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>{isLogin ? "Вход" : "Регистрация"}</h2>
-          <button className="close-btn" onClick={onClose}>×</button>
+          <button className="close-btn" onClick={onClose}>
+            ×
+          </button>
         </div>
         <form onSubmit={isLogin ? handleLogin : handleRegister}>
           <div className="modal-body">

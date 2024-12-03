@@ -1,21 +1,13 @@
-const express = require('express');
-const { Pool } = require('pg');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
+import express from 'express';
+import bcrypt from "bcrypt"
+import dotenv from "dotenv"
+import pool from '../config/db'
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: 5432,
-});
 
 // Регистрация
 app.post('/api/register', async (req, res) => {

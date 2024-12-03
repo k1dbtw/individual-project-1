@@ -21,10 +21,6 @@ function Header() {
             <span>Ташкент, Мирабадский р-он, ул. Авлиё Ота, 7</span>
           </div>
           <div className="header__top-right">
-            <i className="bi bi-heart"></i>
-            <span>Избранное</span>
-            <i className="bi bi-card-list"></i>
-            <span>Сравнение (0)</span>
             <i className="bi bi-person-lock" onClick={openModal}></i> {/* Открытие модального окна при клике */}
             <span onClick={openModal}>Войти</span> {/* Открытие модального окна при клике */}
           </div>
