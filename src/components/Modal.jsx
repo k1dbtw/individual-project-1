@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../assets/css/modal.css";
 
 const Modal = ({ isOpen, onClose }) => {
@@ -21,24 +21,30 @@ const Modal = ({ isOpen, onClose }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-      }),
-    });
+    try {
+      const response = await fetch("http://localhost:5000/api/login", { // Убедитесь, что путь правильный
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
-    const data = await response.json();
-    if (response.ok) {
-      localStorage.setItem("token", data.token); // Сохраняем токен в localStorage
-      alert("Вы вошли");
-      onClose(); // Закрытие модального окна после успешного входа
-    } else {
-      alert(data.message);
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("token", data.token); // Сохраняем токен в localStorage
+        alert("Вы вошли!");
+        onClose(); // Закрытие модального окна после успешного входа
+      } else {
+        alert(data.message || "Произошла ошибка");
+      }
+    } catch (error) {
+      console.error("Ошибка:", error);
+      alert("Не удалось выполнить запрос. Проверьте соединение.");
     }
   };
 
@@ -46,32 +52,35 @@ const Modal = ({ isOpen, onClose }) => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      }),
-    });
+    try {
+      const response = await fetch("http://localhost:5000/api/register", { // Используем полный путь
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
-    // Проверяем, что сервер возвращает успешный ответ
-    if (response.ok) {
       const data = await response.json();
-      console.log(data); // Логируем полученные данные
-      alert("Регистрация прошла успешно");
-      setIsLogin(true); // Переключаемся на форму входа после регистрации
-      setFormData({
-        email: "",
-        password: "",
-        name: "",
-      }); // Очищаем поля формы
-    } else {
-      const data = await response.json();
-      alert(data.message || "Произошла ошибка");
+
+      if (response.ok) {
+        alert("Регистрация прошла успешно");
+        setIsLogin(true); // После регистрации переключаем на форму входа
+        setFormData({
+          email: "",
+          password: "",
+          name: "",
+        });
+      } else {
+        alert(data.message || "Произошла ошибка");
+      }
+    } catch (error) {
+      console.error("Ошибка:", error);
+      alert("Не удалось выполнить запрос. Проверьте соединение.");
     }
   };
 
@@ -82,9 +91,7 @@ const Modal = ({ isOpen, onClose }) => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>{isLogin ? "Вход" : "Регистрация"}</h2>
-          <button className="close-btn" onClick={onClose}>
-            ×
-          </button>
+          <button className="close-btn" onClick={onClose}>×</button>
         </div>
         <form onSubmit={isLogin ? handleLogin : handleRegister}>
           <div className="modal-body">
