@@ -9,11 +9,9 @@ const app = express();
 app.use(express.json());
 
 
-// Регистрация
 app.post('/api/register', async (req, res) => {
   const { name, email, password } = req.body;
 
-  // Хеширование пароля
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
@@ -30,7 +28,6 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
-// Вход
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 

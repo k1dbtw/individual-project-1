@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../assets/css/modal.css";
 
-const Modal = ({ isOpen, onClose }) => {
+const Modal = ({ isOpen, onClose, onLoginSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
@@ -17,13 +17,10 @@ const Modal = ({ isOpen, onClose }) => {
     }));
   };
 
-  // Обработчик отправки формы для входа
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch("http://localhost:5000/api/login", {
-        // Убедитесь, что путь правильный
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,44 +34,47 @@ const Modal = ({ isOpen, onClose }) => {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.token); // Сохраняем токен в localStorage
-        onClose(); // Закрытие модального окна после успешного входа
+        localStorage.setItem("token", data.token);
+        onLoginSuccess(); 
       } else {
         alert(data.message || "Произошла ошибка");
       }
     } catch (error) {
       console.error("Ошибка:", error);
-      alert("Не удалось выполнить запрос. Проверьте соединение.");
+      alert("Не удалось выполнить запрос.");
     }
   };
 
-  // Обработчик отправки формы для регистрации
   const handleRegister = async (e) => {
     e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
-    const response = await fetch("http://localhost:5000/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      }),
-    });
+      const data = await response.json();
 
-    const data = await response.json();
-
-    if (response.ok) {
-      alert("Регистрация прошла успешно");
-      setIsLogin(true); // Переключаемся на форму входа
-    } else {
-      alert(data.message); // Если ошибка, выводим сообщение
+      if (response.ok) {
+        alert("Регистрация прошла успешно");
+        setIsLogin(true); 
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Ошибка:", error);
+      alert("Не удалось выполнить запрос.");
     }
   };
 
-  if (!isOpen) return null; // Если окно закрыто, не рендерим его
+  if (!isOpen) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>

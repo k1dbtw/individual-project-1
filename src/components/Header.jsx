@@ -1,16 +1,16 @@
 import { useState } from "react";
-import Modal from "./Modal"; // Импортируем модальное окно
+import Modal from "./Modal"; 
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../assets/css/header.css";
 import logo from "../assets/imgs/logo.png";
 import basket from "../assets/imgs/basket.svg";
 import { Link } from "react-router-dom";
 
-function Header() {
-  const [isModalOpen, setIsModalOpen] = useState(false); // Состояние для модального окна
+function Header  ({ isAuth, onLogin, onLogout }) {
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
-  const openModal = () => setIsModalOpen(true);  // Открытие модального окна
-  const closeModal = () => setIsModalOpen(false);  // Закрытие модального окна
+  const openModal = () => setIsModalOpen(true);  
+  const closeModal = () => setIsModalOpen(false);  
 
   return (
     <>
@@ -21,8 +21,10 @@ function Header() {
             <span>Ташкент, Мирабадский р-он, ул. Авлиё Ота, 7</span>
           </div>
           <div className="header__top-right">
-            <i className="bi bi-person-lock" onClick={openModal}></i> {/* Открытие модального окна при клике */}
-            <span onClick={openModal}>Войти</span> {/* Открытие модального окна при клике */}
+            <i className="bi bi-person-lock" onClick={openModal}></i> { }
+            <button className="header__btn" onClick={isAuth ? onLogout : onLogin}>
+          {isAuth ? "Выйти" : "Войти"}
+        </button>
           </div>
         </div>
         <hr />
@@ -69,7 +71,7 @@ function Header() {
       </header>
       <hr />
 
-      {/* Подключаем и отображаем модальное окно */}
+      { }
       <Modal isOpen={isModalOpen} onClose={closeModal} />
     </>
   );

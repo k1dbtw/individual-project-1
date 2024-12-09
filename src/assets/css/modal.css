@@ -1,11 +1,10 @@
-/* Общие стили для модального окна */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* затемненный фон */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +19,6 @@
   pointer-events: all;
 }
 
-/* Контейнер модального окна */
 .modal-content {
   background-color: #fff;
   padding: 30px;
@@ -34,7 +32,6 @@
   animation: slideIn 0.5s ease-out;
 }
 
-/* Анимация для появления модального окна */
 @keyframes slideIn {
   0% {
     opacity: 0;
@@ -46,7 +43,6 @@
   }
 }
 
-/* Крестик (кнопка закрытия) */
 button.close-btn {
   position: absolute;
   top: 10px;
@@ -61,11 +57,10 @@ button.close-btn {
 }
 
 button.close-btn:hover {
-  color: #e53946; /* красный цвет при наведении */
-  transform: scale(1.1); /* увеличиваем крестик */
+  color: #e53946; 
+  transform: scale(1.1);
 }
 
-/* Заголовок модального окна */
 .modal-content h2 {
   font-size: 24px;
   margin-bottom: 20px;
@@ -74,7 +69,6 @@ button.close-btn:hover {
   letter-spacing: 0.5px;
 }
 
-/* Стили для формы */
 form {
   display: flex;
   flex-direction: column;
@@ -82,7 +76,6 @@ form {
   gap: 15px;
 }
 
-/* Поля ввода */
 input {
   padding: 12px 20px;
   width: 100%;
@@ -101,13 +94,11 @@ input:focus {
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
 
-/* Добавляем отступы для label */
 label {
   padding-bottom: 10px;
-  margin-bottom: 10px; /* отступ снизу */
+  margin-bottom: 10px;
 }
 
-/* Кнопка отправки */
 button[type="submit"] {
   margin-bottom: 10px;
   background-color: #4caf50;
@@ -134,7 +125,6 @@ button[type="submit"]:disabled {
   cursor: not-allowed;
 }
 
-/* Для кнопок "Зарегистрироваться" / "Войти" */
 .switch button {
   margin-left: 10px;
   cursor: pointer;
@@ -149,15 +139,14 @@ button[type="submit"]:disabled {
   color: #388e3c;
 }
 
-/* Стили для overlay (затененный фон) */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Прозрачный фон */
-  z-index: 1000; /* Убедитесь, что окно будет на переднем плане */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -166,13 +155,11 @@ button[type="submit"]:disabled {
   transition: opacity 0.3s ease;
 }
 
-/* Когда окно закрыто, оно не будет отображаться */
 .modal-overlay.hidden {
   visibility: hidden;
   opacity: 0;
 }
 
-/* Контейнер для самого модального окна */
 .modal-content {
   background-color: white;
   padding: 30px;
@@ -185,7 +172,6 @@ button[type="submit"]:disabled {
   animation: slideIn 0.5s ease-out;
 }
 
-/* Анимация для появления модального окна */
 @keyframes slideIn {
   0% {
     transform: translateY(-50px);
