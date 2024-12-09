@@ -59,20 +59,23 @@ const Modal = ({ isOpen, onClose, onLoginSuccess }) => {
           password: formData.password,
         }),
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        alert("Регистрация прошла успешно");
-        setIsLogin(true); 
-      } else {
-        alert(data.message);
+  
+      // Проверяем, если ответ успешный (status 2xx)
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(errorData.message || "Произошла ошибка");
+        return;
       }
+  
+      const data = await response.json();
+      alert("Регистрация прошла успешно");
+      setIsLogin(true); // Переключаемся на форму входа
     } catch (error) {
       console.error("Ошибка:", error);
       alert("Не удалось выполнить запрос.");
     }
   };
+  
 
   if (!isOpen) return null;
 
