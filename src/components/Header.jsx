@@ -1,16 +1,22 @@
-import { useState } from "react";
-import Modal from "./Modal"; 
+import React, { useState } from "react";
+import Modal from "./Modal";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../assets/css/header.css";
 import logo from "../assets/imgs/logo.png";
 import basket from "../assets/imgs/basket.svg";
 import { Link } from "react-router-dom";
 
-function Header  ({ isAuth, onLogin, onLogout }) {
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+function Header({ isAuth, onLogin, onLogout, onSearchChange, cart }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(""); 
 
-  const openModal = () => setIsModalOpen(true);  
-  const closeModal = () => setIsModalOpen(false);  
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    onSearchChange(e.target.value); 
+  };
 
   return (
     <>
@@ -21,18 +27,16 @@ function Header  ({ isAuth, onLogin, onLogout }) {
             <span>Ташкент, Мирабадский р-он, ул. Авлиё Ота, 7</span>
           </div>
           <div className="header__top-right">
-            <i className="bi bi-person-lock" onClick={openModal}></i> { }
+            <i className="bi bi-person-lock" onClick={openModal}></i>
             <button className="header__btn" onClick={isAuth ? onLogout : onLogin}>
-          {isAuth ? "Выйти" : "Войти"}
-        </button>
+              {isAuth ? "Выйти" : "Войти"}
+            </button>
           </div>
         </div>
         <hr />
         <div className="header__main">
           <img src={logo} alt="header__logo" className="header__main-img" />
-          <div className="header__main-div">
-            Товары для офиса и детского творчества
-          </div>
+          <div className="header__main-div">Товары для офиса и детского творчества</div>
           <div className="header__main-form">
             <form action="" className="form">
               <div className="form-floating">
@@ -42,6 +46,8 @@ function Header  ({ isAuth, onLogin, onLogout }) {
                   id="search"
                   className="header__main-input"
                   placeholder=" "
+                  value={searchQuery}
+                  onChange={handleSearchChange}
                 />
                 <label htmlFor="search" className="header__main-label">
                   Начните вводить название товара
@@ -49,15 +55,16 @@ function Header  ({ isAuth, onLogin, onLogout }) {
               </div>
             </form>
           </div>
-          <div className="header__main-container">
-            <h1 className="header__main-number">+998 (78) 147-01-01</h1>
-            <a href="" className="header__main-link">
-              Заказать звонок
-            </a>
+          <div className="header__main-contact">
+            <div className="header__main-info">
+              <h1 className="header__main-number">+998 (78) 147-01-01</h1>
+              <a href="#" className="header__main-link">Заказать звонок</a>
+            </div>
+            <div className="header__main-basket">
+              <img src={basket} alt="Корзина" />
+              <span className="cart-count">{cart.length}</span>
+            </div>
           </div>
-        </div>
-        <div className="header__main-basket">
-          <img src={basket} alt="" />
         </div>
         <hr />
         <nav className="header__nav">
@@ -69,9 +76,7 @@ function Header  ({ isAuth, onLogin, onLogout }) {
           <Link to="/delivery">Оплата и доставка</Link>
         </nav>
       </header>
-      <hr />
 
-      { }
       <Modal isOpen={isModalOpen} onClose={closeModal} />
     </>
   );

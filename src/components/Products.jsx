@@ -1,24 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../assets/css/ProductCard.css";
+import "../assets/css/ProductCard.css"; 
 import axios from "axios";
 
-const ProductCard = ({ image, title, price, quantity }) => {
-  return (
-    <div className="card">
-      <img src={image} alt={title} />
-      <h3>{title}</h3>
-      <p>
-        <strong>Цена:</strong> {price} UZS
-      </p>
-      <p>
-        <strong>Количество:</strong> {quantity}
-      </p>
-      <button>Купить</button>
-    </div>
-  );
-};
-
-const ProductList = () => {
+const Products = ({ searchQuery, addToCart }) => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
 
@@ -26,7 +10,7 @@ const ProductList = () => {
     axios
       .get("http://localhost:5000/api/products") 
       .then((response) => {
-        setProducts(response.data);
+        setProducts(response.data); 
       })
       .catch((err) => {
         setError("Не удалось загрузить продукты.");
@@ -34,23 +18,33 @@ const ProductList = () => {
       });
   }, []);
 
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase()) // Фильтрация по запросу
+  );
+
   if (error) {
     return <div className="error">{error}</div>;
   }
 
   return (
     <div className="cards-container">
-      {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          image={product.image_url}
-          title={product.name}
-          price={product.price}
-          quantity={product.quantity}
-        />
+      {filteredProducts.map((product) => (
+        <div className="card" key={product.id}>
+          <img src={product.image_url} alt={product.name} />
+          <h3>{product.name}</h3>
+          <p>
+            <strong>Цена:</strong> {product.price} UZS
+          </p>
+          <p>
+            <strong>Количество:</strong> {product.quantity}
+          </p>
+          <button onClick={() => addToCart(product)}>Купить</button>
+        </div>
       ))}
+      
     </div>
   );
 };
 
-export default ProductList;
+
+export default Products;

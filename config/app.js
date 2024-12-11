@@ -6,6 +6,8 @@ import dotenv from "dotenv";
 import pool from "../config/db.js";
 
 dotenv.config();
+console.log("JWT Secret:", process.env.JWT_SECRET); // Добавьте этот лог для проверки
+
 
 const app = express();
 
@@ -47,6 +49,7 @@ app.post("/api/register", async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("Hashed Password:", hashedPassword);
     const result = await pool.query(
       "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id",
       [name, email, hashedPassword]
@@ -62,6 +65,7 @@ app.post("/api/register", async (req, res) => {
 
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
+  console.log("Received login request:", { email, password }); // Добавьте этот лог
 
   if (!email || !password) {
     return res.status(400).json({ message: "Все поля обязательны" });
@@ -72,12 +76,14 @@ app.post("/api/login", async (req, res) => {
       email,
     ]);
     const user = result.rows[0];
+    console.log("User found:", user); // Добавьте этот лог
 
     if (!user) {
       return res.status(400).json({ message: "Неверный email или пароль" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log("Password match:", isMatch); // Добавьте этот лог
     if (!isMatch) {
       return res.status(400).json({ message: "Неверный email или пароль" });
     }
@@ -95,5 +101,5 @@ app.post("/api/login", async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

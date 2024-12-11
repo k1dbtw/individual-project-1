@@ -46,6 +46,38 @@ ul {
   width: 100%;
 }
 
+.header__main-contact {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header__main-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.header__main-number {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.header__main-link {
+  font-size: 14px;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.header__main-link:hover {
+  color: #0056b3;
+}
+
+.header__main-basket img {
+  width: 40px;
+  margin-left: 50px;
+  cursor: pointer;
+}
+
 .header__main-div {
   color: grey;
 }
@@ -88,7 +120,6 @@ ul {
   background-color: white;
   padding: 0 4px;
 }
-
 
 .header__main-input {
   outline: none;
@@ -137,7 +168,7 @@ ul {
 }
 
 .header__top-right span {
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .header__btn {
@@ -207,8 +238,8 @@ button.close-btn {
 }
 
 button.close-btn:hover {
-  color: #e53946; 
-  transform: scale(1.1); 
+  color: #e53946;
+  transform: scale(1.1);
 }
 
 .modal-content h2 {
@@ -265,4 +296,39 @@ button[type="submit"]:active {
 button[type="submit"]:disabled {
   background-color: #bbb;
   cursor: not-allowed;
+}
+.header__main-basket {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.cart-count {
+  position: absolute;
+  top: -10px;
+  right: -25px;
+  background-color: #ff6f61; 
+  color: white; 
+  font-size: 10px;
+  font-weight: bold; 
+  padding: 4px 8px;
+  border-radius: 50%; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+  animation: bounce 0.5s infinite alternate;
+}
+
+.cart-count {
+  font-family: "Poppins", sans-serif; 
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+.cart-count:empty {
+  display: none; 
 }

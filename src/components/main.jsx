@@ -6,12 +6,16 @@ import Home from "../components/Home";
 import Contacts from "./Contacts";
 import HomeMain from "./HomeMain";
 import AboutCompany from "./AboutCompany";
-import ProductCard from "./Products";
+import Products from "./Products";
 import Modal from "../components/Modal";
+import Payment from "./Payment";
+import Footer from "../components/Footer"; // Import Footer component
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(!!localStorage.getItem("token"));
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [cart, setCart] = useState([]);
 
   const handleLoginSuccess = () => {
     setIsAuth(true);
@@ -23,12 +27,18 @@ const App = () => {
     setIsAuth(false);
   };
 
+  const addToCart = (product) => {
+    setCart((prevCart) => [...prevCart, product]);
+  };
+
   return (
     <Router>
       <Header
         isAuth={isAuth}
         onLogin={() => setIsModalOpen(true)}
         onLogout={handleLogout}
+        onSearchChange={setSearchQuery}
+        cart={cart} // Передаем корзину в Header
       />
       <Routes>
         <Route
@@ -42,12 +52,20 @@ const App = () => {
         />
         <Route path="/сontacts" element={<Contacts />} />
         <Route path="/сompany" element={<AboutCompany />} />
-        <Route path="/stocks" element={<ProductCard />} />
+        <Route
+          path="/stocks"
+          element={<Products searchQuery={searchQuery} addToCart={addToCart} />}
+        />
+        <Route path="/delivery" element={<Payment />} />
       </Routes>
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onLoginSuccess={handleLoginSuccess}
+      />
+      <Footer 
+        handleSpecialOffersClick={() => {}}
+        handleNavigateToDelivery={() => {}}
       />
     </Router>
   );

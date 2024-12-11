@@ -15,8 +15,23 @@ import img1 from "../assets/imgs/1.jpg";
 import img2 from "../assets/imgs/2.jpg";
 import fb from "../assets/imgs/facebook.svg";
 import ig from "../assets/imgs/instagram.svg";
+import { useNavigate } from "react-router-dom";
 
 function HomeMain() {
+  const navigate = useNavigate();
+
+  const handleNavigateToProducts = () => {
+    navigate("/stocks"); 
+  };
+
+  const handleNavigateToDelivery = () => {
+    navigate("/delivery"); 
+  };
+
+  const handleSpecialOffersClick = () => {
+    alert("Акции и спецпредложения закончились");
+  };
+
   return (
     <>
       <div className="home__main-span">
@@ -33,7 +48,9 @@ function HomeMain() {
           <button className="home__main-btn markers">Маркеры</button>
         </div>
         <div className="home__main-item">
-          <button className="home__main-btn penal">Пеналы для школьников</button>
+          <button className="home__main-btn penal">
+            Пеналы для школьников
+          </button>
         </div>
       </div>
       <div className="home__main-cards">
@@ -167,29 +184,34 @@ function HomeMain() {
             фабриках Европы и Азии с использованием экологичных материалов и
             современных технологий.
           </p>
-          <button className="container-left-btn">Подробнее</button>
         </div>
 
         <div className="container-right">
           <h3 className="container-right-title">Полезно знать</h3>
           <div className="container-right-item">
             <img
-              src={img1}
+              src={img1} 
               alt="Article 1"
               className="container-right-item-img"
             />
-            <p className="container-right-item-text">
+            <p
+              className="container-right-item-text"
+              onClick={handleNavigateToProducts}
+            >
               Канцелярские товары: разнообразные и полезные предметы, изделия и
               другие мелочи
             </p>
           </div>
           <div className="container-right-item">
             <img
-              src={img2}
+              src={img2} // Замените на актуальный путь к изображению
               alt="Article 2"
               className="container-right-item-img"
             />
-            <p className="container-right-item-text">
+            <p
+              className="container-right-item-text"
+              onClick={handleNavigateToProducts}
+            >
               Ручки: современные инструменты для письма, рисования и черчения
             </p>
           </div>
@@ -204,73 +226,6 @@ function HomeMain() {
         referrerPolicy="no-referrer-when-downgrade"
       />
       <hr />
-      <footer className="footer">
-        <div className="footer-container">
-          <div className="footer-column">
-            <h4>Компания</h4>
-            <ul>
-              <li>
-                <a href="#">О компании</a>
-              </li>
-              <li>
-                <a href="#">Контакты</a>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-column">
-            <h4>Информация</h4>
-            <ul>
-              <li>
-                <a href="#">Акции и спецпредложения</a>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-column">
-            <h4>Помощь</h4>
-            <ul>
-              <li>
-                <a href="#">Доставка и оплата</a>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-column">
-            <h4>Контакты</h4>
-            <p>📍 Ташкент, Мирабадский р-н, ул. Авлиё Ота, 7</p>
-            <p>
-              📞 <a href="tel:+998781470101">+998 (78) 147-01-01</a>
-            </p>
-            <p>
-              <a href="#">Заказать звонок</a>
-            </p>
-          </div>
-          <div className="footer-column footer-subscribe">
-            <h4>Мы в социальных сетях</h4>
-            <div className="social-icons">
-              <a href="#">
-                <img src={fb} alt="" />
-              </a>
-              <a href="#">
-                <img src={ig} alt="" />
-              </a>
-            </div>
-            <form className="subscribe-form">
-              <label htmlFor="subscribe">Подписывайтесь на рассылку</label>
-              <div className="subscribe-input">
-                <input
-                  id="subscribe"
-                  type="email"
-                  placeholder="Введите ваш e-mail"
-                />
-                <button type="submit">➤</button>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          2007 - 2024 © Интернет-магазин "Kanstik" |{" "}
-          <a href="#">Политика конфиденциальности</a>
-        </div>
-      </footer>
     </>
   );
 }

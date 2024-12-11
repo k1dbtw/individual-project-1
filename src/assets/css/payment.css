@@ -1,0 +1,38 @@
+.payment-container {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .payment-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2, h3 {
+    margin-top: 15px;
+  }
+  
+  p {
+    line-height: 1.6;
+  }
+  
+  ul {
+    margin-left: 20px;
+    list-style-type: disc;
+  }
+  
+  strong {
+    font-weight: bold;
+  }
+  
+  .k1dbtw {
+    color: blue;
+  }

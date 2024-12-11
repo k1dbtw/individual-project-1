@@ -1,0 +1,131 @@
+.footer {
+    background: #f8f9fa;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+    color: #000;
+  }
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .footer-column {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+  }
+  
+  .footer-column h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 8px;
+  }
+  
+  .footer-column ul li a {
+    text-decoration: none;
+    color: #000;
+    transition: color 0.3s;
+  }
+  
+  .footer-column ul li a:hover {
+    color: #007bff;
+  }
+  
+  .footer-column p {
+    margin: 5px 0;
+  }
+  
+  .footer-column a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .footer-column a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-subscribe {
+    text-align: right;
+  }
+  
+  .social-icons {
+    margin-bottom: 10px;
+  }
+  
+  .social-icons a {
+    margin-right: 10px;
+    color: #000;
+    font-size: 24px;
+    text-decoration: none;
+  }
+  
+  .social-icons a:hover {
+    color: #007bff;
+  }
+  
+  .subscribe-form {
+    margin-top: 10px;
+  }
+  
+  .subscribe-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .subscribe-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .subscribe-input input {
+    padding: 8px;
+    width: 80%;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .subscribe-input button {
+    padding: 8px 12px;
+    border: none;
+    background: #6c63ff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .subscribe-input button:hover {
+    background: #5548cc;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .footer-bottom a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .footer-bottom a:hover {
+    text-decoration: underline;
+  }
