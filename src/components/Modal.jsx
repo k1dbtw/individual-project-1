@@ -19,7 +19,6 @@ const Modal = ({ isOpen, onClose, onLoginSuccess }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData); // Добавьте этот лог
     try {
       const response = await fetch("http://localhost:5000/api/login", {
         method: "POST",
@@ -31,12 +30,13 @@ const Modal = ({ isOpen, onClose, onLoginSuccess }) => {
           password: formData.password,
         }),
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok) {
-        localStorage.setItem("token", data.token); // Исправлено на data.token
-        onLoginSuccess();
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.role); 
+        onLoginSuccess(data.role); 
       } else {
         alert(data.message || "Произошла ошибка");
       }
@@ -45,7 +45,6 @@ const Modal = ({ isOpen, onClose, onLoginSuccess }) => {
       alert("Не удалось выполнить запрос.");
     }
   };
-  
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -62,14 +61,13 @@ const Modal = ({ isOpen, onClose, onLoginSuccess }) => {
         }),
       });
 
-      if (!response.ok) {
-        const text = await response.text();
-        console.error("Ошибка ответа сервера: ", text);
-        throw new Error("Ошибка ответа сервера");
+      if (response.ok) {
+        alert("Регистрация прошла успешно");
+        setIsLogin(true);
+      } else {
+        const data = await response.json();
+        alert(data.message || "Ошибка при регистрации");
       }
-
-      alert("Регистрация прошла успешно");
-      setIsLogin(true);
     } catch (error) {
       console.error("Ошибка:", error);
       alert("Не удалось выполнить запрос.");

@@ -24,6 +24,7 @@ const App = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
     setIsAuth(false);
   };
 
