@@ -1,8 +1,13 @@
 import fb from "../assets/imgs/facebook.svg";
 import ig from "../assets/imgs/instagram.svg";
-import "../assets/css/footer.css"
+import "../assets/css/footer.css";
 
 const Footer = ({ handleSpecialOffersClick, handleNavigateToDelivery }) => {
+  const handleSpecialOffersAlert = (e) => {
+    e.preventDefault(); // Предотвращаем переход по ссылке
+    alert("Все акции закончились"); // Показываем алерт
+  };
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -21,7 +26,7 @@ const Footer = ({ handleSpecialOffersClick, handleNavigateToDelivery }) => {
           <h4>Информация</h4>
           <ul>
             <li>
-              <a href="#" onClick={handleSpecialOffersClick}>
+              <a href="#" onClick={handleSpecialOffersAlert}>
                 Акции и спецпредложения
               </a>
             </li>
@@ -42,7 +47,7 @@ const Footer = ({ handleSpecialOffersClick, handleNavigateToDelivery }) => {
             📞 <a href="tel:+998781470101">+998 (78) 147-01-01</a>
           </p>
           <p>
-            <a href="#">Заказать звонок</a>
+            <a href="tel:+998781470101">Заказать звонок</a>
           </p>
         </div>
         <div className="footer-column footer-subscribe">
