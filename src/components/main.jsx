@@ -10,6 +10,8 @@ import Products from "./Products";
 import Modal from "../components/Modal";
 import Payment from "./Payment";
 import Footer from "../components/Footer"; // Import Footer component
+import CartModal from "./CartModal";
+import axios from "axios";
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(!!localStorage.getItem("token"));
@@ -29,7 +31,28 @@ const App = () => {
   };
 
   const addToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]);
+    const email = localStorage.getItem('email');
+    axios.post("http://localhost:5000/api/cart", {
+      product_id: product.id,
+      email: email
+    }).then(response => {
+      console.log("Товар добавлен в корзину:", response.data);
+      // Обновляем локальное состояние корзины
+      setCart((prevCart) => {
+        const existingProduct = prevCart.find(item => item.id === product.id);
+        if (existingProduct) {
+          // Если товар уже в корзине, увеличиваем количество
+          return prevCart.map(item => 
+            item.id === product.id ? {...item, quantity: item.quantity + 1} : item
+          );
+        } else {
+          // Если товара нет в корзине, добавляем его
+          return [...prevCart, {...product, quantity: 1}];
+        }
+      });
+    }).catch(error => {
+      console.error("Ошибка при добавлении в корзину:", error);
+    });
   };
 
   return (
@@ -64,7 +87,7 @@ const App = () => {
         onClose={() => setIsModalOpen(false)}
         onLoginSuccess={handleLoginSuccess}
       />
-      <Footer 
+      <Footer
         handleSpecialOffersClick={() => {}}
         handleNavigateToDelivery={() => {}}
       />

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
+import CartModal from "../components/CartModal"; // предполагается, что вы создали этот компонент
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../assets/css/header.css";
 import logo from "../assets/imgs/logo.png";
@@ -8,14 +9,16 @@ import { Link } from "react-router-dom";
 
 function Header({ isAuth, onLogin, onLogout, onSearchChange, cart }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(""); 
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false); // Новое состояние для модального окна корзины
+  const [searchQuery, setSearchQuery] = useState("");
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const toggleCartModel = (state) => setIsCartModalOpen(!state);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    onSearchChange(e.target.value); 
+    onSearchChange(e.target.value);
   };
 
   return (
@@ -28,7 +31,10 @@ function Header({ isAuth, onLogin, onLogout, onSearchChange, cart }) {
           </div>
           <div className="header__top-right">
             <i className="bi bi-person-lock" onClick={openModal}></i>
-            <button className="header__btn" onClick={isAuth ? onLogout : onLogin}>
+            <button
+              className="header__btn"
+              onClick={isAuth ? onLogout : onLogin}
+            >
               {isAuth ? "Выйти" : "Войти"}
             </button>
           </div>
@@ -36,7 +42,9 @@ function Header({ isAuth, onLogin, onLogout, onSearchChange, cart }) {
         <hr />
         <div className="header__main">
           <img src={logo} alt="header__logo" className="header__main-img" />
-          <div className="header__main-div">Товары для офиса и детского творчества</div>
+          <div className="header__main-div">
+            Товары для офиса и детского творчества
+          </div>
           <div className="header__main-form">
             <form action="" className="form">
               <div className="form-floating">
@@ -58,9 +66,16 @@ function Header({ isAuth, onLogin, onLogout, onSearchChange, cart }) {
           <div className="header__main-contact">
             <div className="header__main-info">
               <h1 className="header__main-number">+998 (78) 147-01-01</h1>
-              <a href="#" className="header__main-link">Заказать звонок</a>
+              <a href="#" className="header__main-link">
+                Заказать звонок
+              </a>
             </div>
-            <div className="header__main-basket">
+            <div
+              className="header__main-basket"
+              onClick={() => {
+                toggleCartModel(isCartModalOpen);
+              }}
+            >
               <img src={basket} alt="Корзина" />
               <span className="cart-count">{cart.length}</span>
             </div>
@@ -78,6 +93,7 @@ function Header({ isAuth, onLogin, onLogout, onSearchChange, cart }) {
       </header>
 
       <Modal isOpen={isModalOpen} onClose={closeModal} />
+      <CartModal isOpen={isCartModalOpen} onClose={toggleCartModel} />
     </>
   );
 }

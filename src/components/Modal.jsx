@@ -35,8 +35,9 @@ const Modal = ({ isOpen, onClose, onLoginSuccess }) => {
 
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("role", data.role); 
-        onLoginSuccess(data.role); 
+        localStorage.setItem("role", data.role);
+        localStorage.setItem("email", data.email);
+        onLoginSuccess(data.role);
       } else {
         alert(data.message || "Произошла ошибка");
       }

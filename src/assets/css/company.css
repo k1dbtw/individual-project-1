@@ -1,8 +1,16 @@
 p {
-    padding-left: 20px;
+  padding-left: 20px;
 }
 
 .list {
-    padding-left: 20px;
-    margin-left: 20px;
+  padding-left: 20px;
+  margin-left: 20px;
+}
+
+.modalCart {
+  position: absolute;
+  z-index: 100;
+  width: 200px;
+  height: 700px;
+  background: red;
 }

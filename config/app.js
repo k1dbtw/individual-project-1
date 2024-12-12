@@ -25,6 +25,64 @@ app.get("/api/products", async (req, res) => {
   }
 });
 
+app.get("/api/cart_all", async (req, res) => {
+  try {
+    const email = req.query.email;
+    console.log(email);
+    const result = await pool.query(
+      "SELECT c.product_id, p.name, p.price, c.quantity FROM cart c JOIN products p ON c.product_id = p.id WHERE c.user_id = (SELECT id FROM users where email = $1)",
+      [email]
+    );
+
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.error("Ошибка при получении корзины:", err.message);
+    res.status(500).json({ message: "Ошибка сервера" });
+  }
+});
+
+app.post("/api/cart", async (req, res) => {
+  try {
+    const { product_id, email } = req.body; // Предполагаем, что email передается в теле запроса
+
+    // Получаем user_id по email
+    const userResult = await pool.query(
+      "SELECT id FROM users WHERE email = $1",
+      [email]
+    );
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ message: "Пользователь не найден" });
+    }
+
+    const userId = userResult.rows[0].id;
+
+    // Проверяем, есть ли уже такой товар в корзине
+    const existingCartItem = await pool.query(
+      "SELECT * FROM cart WHERE user_id = $1 AND product_id = $2",
+      [userId, product_id]
+    );
+
+    if (existingCartItem.rows.length > 0) {
+      // Если товар уже в корзине, увеличиваем количество
+      await pool.query(
+        "UPDATE cart SET quantity = quantity + 1, updated_at = CURRENT_TIMESTAMP WHERE user_id = $1 AND product_id = $2",
+        [userId, product_id]
+      );
+    } else {
+      // Если товара нет, добавляем его в корзину
+      await pool.query(
+        "INSERT INTO cart (user_id, product_id, quantity, created_at, updated_at) VALUES ($1, $2, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)",
+        [userId, product_id]
+      );
+    }
+
+    res.status(200).json({ message: "Товар добавлен в корзину" });
+  } catch (err) {
+    console.error("Ошибка при добавлении в корзину:", err.message);
+    res.status(500).json({ message: "Ошибка сервера" });
+  }
+});
+
 app.put("/api/products/:id", async (req, res) => {
   const { id } = req.params;
   const { name, price, quantity } = req.body;
@@ -53,7 +111,6 @@ app.delete("/api/products/:id", async (req, res) => {
   }
 });
 
-
 app.post("/api/register", async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -62,9 +119,14 @@ app.post("/api/register", async (req, res) => {
   }
 
   try {
-    const existingUser = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    const existingUser = await pool.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    );
     if (existingUser.rows.length > 0) {
-      return res.status(400).json({ message: "Пользователь с таким email уже существует" });
+      return res
+        .status(400)
+        .json({ message: "Пользователь с таким email уже существует" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -92,7 +154,9 @@ app.post("/api/login", async (req, res) => {
   }
 
   try {
-    const result = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    const result = await pool.query("SELECT * FROM users WHERE email = $1", [
+      email,
+    ]);
     const user = result.rows[0];
 
     if (!user) {
@@ -103,20 +167,27 @@ app.post("/api/login", async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: "Неверный email или пароль" });
     }
-    const token = jwt.sign({ userId: user.id, role: user.role }, "my_super_secret_key", {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { userId: user.id, role: user.role },
+      "my_super_secret_key",
+      {
+        expiresIn: "1h",
+      }
+    );
 
-    res.status(200).json({ message: "Вход выполнен", token, role:result.rows[0].role });
+    res.status(200).json({
+      message: "Вход выполнен",
+      token,
+      role: user.role,
+      email: user.email,
+    });
   } catch (error) {
     console.error("Ошибка при входе пользователя:", error.message);
     res.status(500).json({ message: "Ошибка сервера при входе" });
   }
 });
 
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-
